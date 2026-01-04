@@ -335,10 +335,10 @@ class Sentinel1(Sensor):
             temp_pluse = 0
             if self.grab_from_xml2('productInfo/acquisitionInfo/look_dir') == "right":
                 lookSide = -1
-                print("Look direction: right")
+                print("DJ Look direction: right")
             else:
                 lookSide = 1
-                print("Look direction: ,left")
+                print("DJ Look direction: left")
         else:
             pulseLength = float(self.grab_from_xml('generalAnnotation/downlinkInformationList/downlinkInformation/downlinkValues/txPulseLength'))
             chirpSlope = float(self.grab_from_xml('generalAnnotation/downlinkInformationList/downlinkInformation/downlinkValues/txPulseRampRate'))

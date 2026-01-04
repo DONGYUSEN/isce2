@@ -89,17 +89,25 @@ def main():
                         'the one specified by --url plus /srtm/version2_1/SRTM(1,3).'  \
                         +'If --type=version3 then it represents the full path url')
     args = parser.parse_args()
+    args.type = 'version3'
     #first get the url,uname and password since are needed in the constructor
 
     ds = createDemStitcher(args.type)
     ds.configure()
+    print(ds)
 
     ds.setUrl = 'http://step.esa.int/auxdata/dem/SRTMGL1/'
     args.url = 'http://step.esa.int/auxdata/dem/SRTMGL1/'
-    args.source == 1
-    
+    args.source = 1
+    ds._url1 = args.url
+    ds._url2 = args.url
+    ds._url3 = args.url
+    args.type = 'version3'
+
+
     #NASADEM only available in 1-arc sec resolution
     if(args.type == 'nasadem'):
+        args.type = 'version3'
         args.source == 1
 
     if(args.url):
@@ -112,8 +120,8 @@ def main():
                 print('Unrecognized source')
                 raise ValueError
 
-        else:
-            ds.setUrl(args.url)
+#        else:
+#            ds.setUrl(args.url)
     
     ds.setUsername(args.uname)
     ds.setPassword(args.password)

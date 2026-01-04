@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<insarApp>
+  <component name="insar">
+    <property name="sensor name">SENTINEL1</property>
+    <component name="reference">
+        <catalog>master.xml</catalog>
+    </component>
+    <component name="secondary">
+        <catalog>slave.xml</catalog>
+    </component>
+    <property name="azimuthlooks">4</property>
+    <property name="rangelooks">2</property>
+    <!--
+      <property name="do rubbersheetingAzimuth">True</property>
+      <property name="do rubbersheetingRange">False</property>
+    -->
+  </component>
+</insarApp>

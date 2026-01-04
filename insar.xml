@@ -8,7 +8,7 @@
     <component name="secondary">
         <catalog>slave.xml</catalog>
     </component>
-    <property name="azimuthlooks">4</property>
+    <property name="azimuthlooks">2</property>
     <property name="rangelooks">2</property>
     <!--
       <property name="do rubbersheetingAzimuth">True</property>

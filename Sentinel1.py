@@ -31,7 +31,7 @@
 
 # APR. 02, 2015    add the ability to extract Restituted Orbit
 #                  by Cunren Liang
-#
+# Jan. 05, 2026    add support for tianyi's satellites with S1 format
 #
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -143,18 +143,18 @@ class Sentinel1(Sensor):
         ####First find annotation file
         ####Dont need swath number when driving with xml and tiff file
         if not self.xml:
-            swathid = '[s,b]??-s?-slc-{}'.format(self.polarization) # by dong
+            swathid = '[s,b]??-s?-slc-{}'.format(self.polarization) # by dong add support for tianyi!
             #swathid = 's1?-s?-slc-{}'.format(self.polarization)
-            #print ("swathid", swathid)
+            #print ("swathid", swathid) # for debug
 
         dirname = self.safe
         if not self.xml:
             match = None
                 
             if dirname.endswith('.zip'):
-                before_name = '[S1,BC]*'
-                pattern = os.path.join(before_name,'annotation', swathid) + '*.xml' # by dong
-                print ("parttern ",pattern)
+                before_name = '[S1,BC]*' # by dong add support for tianyi!
+                pattern = os.path.join(before_name,'annotation', swathid) + '*.xml' # by dong add support for tianyi!
+                # print ("parttern ",pattern) # for debug by dong
                 zf = zipfile.ZipFile(dirname, 'r')
                 match = fnmatch.filter(zf.namelist(), pattern)
                 zf.close()
@@ -328,17 +328,17 @@ class Sentinel1(Sensor):
         temp_pluse = self.grab_from_xml2('generalAnnotation/downlinkInformationList/downlinkInformation/downlinkValues/txPulseLength')
         if temp_pluse is None or temp_pluse.text is None:
             # for DJ1
-            #print("......DJ1 dataset!")
+            #print("......Tianyi dataset!")
             pulseLength = 0.000026800000 
             pulseBandwidth = float(self.grab_from_xml('imageAnnotation/processingInformation/swathProcParamsList/swathProcParams/rangeProcessing/lookBandwidth')) 
             chirpSlope =  pulseBandwidth/pulseLength 
             temp_pluse = 0
-            if self.grab_from_xml2('productInfo/acquisitionInfo/look_dir') == "right":
+            if self.grab_from_xml2('productInfo/acquisitionInfo/look_dir') == "right":  #位置不明、需要确认！
                 lookSide = -1
-                print("DJ Look direction: right")
+                print("Tianyi Look direction: right")
             else:
                 lookSide = 1
-                print("DJ Look direction: left")
+                print("Tianyi Look direction: left")
         else:
             pulseLength = float(self.grab_from_xml('generalAnnotation/downlinkInformationList/downlinkInformation/downlinkValues/txPulseLength'))
             chirpSlope = float(self.grab_from_xml('generalAnnotation/downlinkInformationList/downlinkInformation/downlinkValues/txPulseRampRate'))
@@ -594,7 +594,7 @@ class Sentinel1(Sensor):
             self.frame.setProcessingSoftwareVersion(rdict['name'] + ' ' + rdict['version'])
 
         except:   ###Not a critical error ... continuing
-            print('Could not read version number successfully from manifest file: ', self.manifest)
+            # print('Could not read version number successfully from manifest file: ', self.manifest) # do not output！
             pass
 
         return

@@ -89,14 +89,14 @@ def main():
                         'the one specified by --url plus /srtm/version2_1/SRTM(1,3).'  \
                         +'If --type=version3 then it represents the full path url')
     args = parser.parse_args()
-    args.type = 'version3'
+    args.type = 'version3' #强制版本3, 用1's的数据。
     #first get the url,uname and password since are needed in the constructor
 
     ds = createDemStitcher(args.type)
     ds.configure()
     print(ds)
 
-    ds.setUrl = 'http://step.esa.int/auxdata/dem/SRTMGL1/'
+    ds.setUrl = 'http://step.esa.int/auxdata/dem/SRTMGL1/' #强制从esa下载1‘s数据。
     args.url = 'http://step.esa.int/auxdata/dem/SRTMGL1/'
     args.source = 1
     ds._url1 = args.url
